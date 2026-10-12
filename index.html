@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f6f3">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cuenta">
+  <meta name="description" content="Un contador personal para registrar lo que quieras, a tu manera.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <title>Cuenta — a tu manera</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Cuenta, inicio"><span class="brand-mark">✳</span><span>cuenta<span class="brand-period">.</span></span></a>
+      <div class="top-actions">
+        <button class="sync-button" id="syncBtn" title="Cuenta y sincronización" aria-label="Cuenta y sincronización"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">Sin cuenta</span></button>
+        <button class="icon-button" id="exportBtn" title="Exportar datos" aria-label="Exportar datos">↗</button>
+        <button class="icon-button" id="importBtn" title="Importar copia" aria-label="Importar copia">↓</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
+    </header>
+
+    <main>
+      <section class="page active" id="homePage">
+        <div class="hero-row">
+          <div><p class="eyebrow" id="dateLabel">TU DÍA, A TU MANERA</p><h1>Tu contador<span class="period">.</span></h1><p class="subtitle">Un pequeño registro de lo que quieras seguir.</p></div>
+          <button class="primary-button add-field-top" id="addFieldBtn"><span>＋</span> Añadir campo</button>
+        </div>
+
+        <section class="summary-card" aria-label="Resumen de actividad">
+          <div class="summary-heading"><div><span class="eyebrow">VISTA GENERAL</span><div class="summary-number" id="summaryTotal">0</div><div class="summary-caption" id="summaryCaption">registros en total</div></div><div class="summary-orbit" aria-hidden="true"><span>✳</span></div></div>
+          <div class="period-switch" role="tablist" aria-label="Periodo del resumen">
+            <button class="period-tab" data-period="today">Hoy</button><button class="period-tab" data-period="week">Semana</button><button class="period-tab" data-period="month">Mes</button><button class="period-tab selected" data-period="all">Todo</button>
+          </div>
+        </section>
+
+        <div class="section-heading"><div><p class="eyebrow">TUS CAMPOS</p><h2>Cuenta lo que importa</h2></div><span class="field-count" id="fieldCount">0 campos</span></div>
+        <div id="fieldsArea"></div>
+        <section class="empty-state" id="emptyState"><div class="empty-illustration"><span>✳</span><i>◌</i><b>＋</b></div><h3>Este espacio es tuyo</h3><p>Empieza por crear una carpeta —por ejemplo, comida— y añade tus propios contadores.</p><button class="primary-button" id="emptyAddBtn">＋ Crear mi primer campo</button></section>
+        <p class="privacy-note"><span>◉</span> Tus registros se guardan aquí y, con tu cuenta, se sincronizan en tus dispositivos.</p>
+      </section>
+
+      <section class="page" id="statsPage">
+        <div class="hero-row stats-hero"><div><p class="eyebrow">MIRA CÓMO CAMBIA</p><h1>Tus datos<span class="period">.</span></h1><p class="subtitle">Un vistazo a lo que has ido registrando.</p></div></div>
+        <div class="stats-controls"><label class="select-wrap"><span>CAMPO</span><select id="chartField"><option value="all">Todos los campos</option></select><b>⌄</b></label><label class="select-wrap"><span>AGRUPAR POR</span><select id="chartGrouping"><option value="hour">Horas</option><option value="day" selected>Días</option><option value="week">Semanas</option><option value="month">Meses</option><option value="year">Años</option><option value="all">General</option></select><b>⌄</b></label></div>
+        <section class="chart-card"><div class="chart-title-row"><div><p class="eyebrow">ACTIVIDAD</p><h2 id="chartTitle">Registros por día</h2></div><div class="chart-total"><strong id="chartTotal">0</strong><span>registros</span></div></div><div class="chart-wrap"><canvas id="activityChart" aria-label="Gráfica de actividad"></canvas><div class="chart-empty" id="chartEmpty">Aún no hay datos para mostrar.<br><span>Los registros aparecerán aquí.</span></div></div><div class="chart-legend"><span class="legend-dot"></span><span id="chartLegend">Registros</span><span class="chart-range" id="chartRange"></span></div></section>
+        <section class="insight-card"><div class="insight-icon">✦</div><div><p class="eyebrow">TU RITMO</p><p id="insightText">Cada toque se convierte en un dato. Empieza a contar y aquí verás cómo evoluciona.</p></div></section>
+        <p class="privacy-note"><span>◉</span> Los datos de esta gráfica son solo tuyos.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal"><button class="nav-item active" data-page="homePage"><span class="nav-icon">⌂</span><span>Contador</span></button><button class="nav-item" data-page="statsPage"><span class="nav-icon">▥</span><span>Estadísticas</span></button></nav>
+  </div>
+
+  <dialog id="fieldDialog" class="modal"><form id="fieldForm"><div class="modal-head"><div><p class="eyebrow" id="formKicker">PERSONALIZA TU CONTADOR</p><h2 id="formTitle">Añadir un campo</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><label class="form-label">¿Qué quieres contar?<input id="fieldName" name="name" maxlength="28" placeholder="Ej. Paseos" required autocomplete="off"></label><div class="form-label">Elige un icono<div class="emoji-search-wrap"><span>⌕</span><input id="emojiSearch" type="search" placeholder="Buscar emoji" autocomplete="off"></div><div class="emoji-categories" id="emojiCategories"></div><div class="icon-picker" id="emojiPicker"></div><div class="custom-icon"><input id="fieldEmoji" name="emoji" maxlength="12" placeholder="✳" aria-label="Icono personalizado"><span>O escribe cualquier emoji de tu teclado</span></div></div><label class="form-label">Carpeta<input id="fieldFolder" name="folder" list="folderOptions" maxlength="24" placeholder="Ej. Bienestar" autocomplete="off"><datalist id="folderOptions"></datalist><span class="field-hint">Escribe una carpeta nueva o elige una existente.</span></label><label class="form-label upload-label">O añade una imagen<input type="file" id="fieldImage" accept="image/*"><span class="upload-button">＋ Elegir imagen</span><span class="upload-name" id="uploadName">Opcional · se guarda en este dispositivo</span></label><div class="modal-actions"><button class="secondary-button" type="button" data-close>Cancelar</button><button class="primary-button" type="submit">Guardar campo</button></div></form></dialog>
+  <dialog id="confirmDialog" class="modal confirm-modal"><div class="modal-head"><div><p class="eyebrow">GESTIONAR CAMPO</p><h2 id="confirmTitle">¿Qué quieres hacer?</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><p class="confirm-copy" id="confirmCopy"></p><div class="manage-actions"><button class="secondary-button" id="editFieldAction">Editar nombre e icono</button><button class="secondary-button danger-button" id="deleteFieldAction">Eliminar campo y registros</button></div></dialog>
+  <dialog id="toastDialog" class="toast-dialog"><p id="toastMessage"></p></dialog>
+  <dialog id="accountDialog" class="modal account-modal"><form id="accountForm"><div class="modal-head"><div><p class="eyebrow">TUS DATOS, EN TUS DISPOSITIVOS</p><h2>Tu cuenta</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><p class="account-copy" id="accountCopy">Accede con un enlace privado que te enviaremos al correo. Tus registros quedarán asociados solo a tu cuenta.</p><label class="form-label">Correo electrónico<input id="accountEmail" type="email" autocomplete="email" placeholder="tu@email.com" required></label><p class="account-status" id="accountStatus" role="status"></p><div class="modal-actions"><button class="secondary-button" type="button" data-close>Cerrar</button><button class="primary-button" id="accountSubmit" type="submit">Enviar enlace</button></div></form></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
