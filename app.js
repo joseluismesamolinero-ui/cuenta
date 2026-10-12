@@ -1,0 +1,143 @@
+(() => {
+  'use strict';
+  const KEY = 'cuentaApp_v1';
+  const EMOJI_GROUPS = {
+    'Populares':'✳ ⭐ ✨ 💫 🔥 ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 💕 💞 💓 💗 💖 💘 💝 💟 💌 🌟 🌈 ☀️ 🌙 ⚡ ☁️ 🌿 🍀 🌱 🌸 🌻 🪴 🦋 🐾 🎉 🎊 🎁 🎈 🏆 🥇 💎 👑 🪄 🧿 🔮 ☕ 🍵 🥤 🍺 🍷 🍹 🍸 🍻 🥂 🍾 🚬 🚭 📱 🎧 🏠 🚗 💰 💸',
+    'Caras':'😀 😃 😄 😁 😆 😅 😂 🤣 🥲 🥹 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😜 🤪 😝 🤑 🤗 🫠 🤭 🫢 🫣 🤫 🤔 🫡 🤐 🤨 😐 😑 😶 🫥 😶‍🌫️ 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 🥱 😴 😌 😛 😜 😒 😓 😔 😕 🫤 🙃 🥴 😵‍💫 😵 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 😟 🙁 ☹️ 😮 😯 😲 😳 🥺 🥹 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👻 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾',
+    'Personas':'👋 🫶 🤲 👐 🙌 👏 🙏 🤝 👍 👎 👊 ✊ 🤛 🤜 🤞 ✌️ 🤟 🤘 👌 🤌 🤏 🫳 🫴 👈 👉 👆 👇 ☝️ ✋ 🖐️ 🤚 🖖 👋 🤙 💪 🦾 🖕 ✍️ 🙋 🙅 🙆 💁 🙇 🤦 🤷 🙎 🙍 💆 💇 🧏 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓 🧑‍🏫 👨‍🏫 👩‍🏫 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👶 🧒 👦 👧 🧑 👨 👩 🧔 🧓 👴 👵 🧑‍🦰 👩‍🦰 👨‍🦰 🧑‍🦱 👩‍🦱 👨‍🦱 🧑‍🦳 👩‍🦳 👨‍🦳 🧑‍🦲 👩‍🦲 👨‍🦲 🧑‍🦯 👩‍🦯 👨‍🦯 🧑‍🦼 👩‍🦼 👨‍🦼 🧑‍🦽 👩‍🦽 👨‍🦽 🧑‍🤝‍🧑 👭 👬 👫 💏 💑 👪 👨‍👩‍👧 👨‍👩‍👦 👨‍👩‍👧‍👦 👩‍👩‍👧 👨‍👨‍👦 🫂 👣 🧠 🫀 🫁 🦷 🦴 👀 👁️ 👅 👄 👂 👃 🫦',
+    'Animales':'🐶 🐕 🐩 🐺 🦊 🦝 🐱 🐈 🦁 🐯 🐅 🐆 🐴 🫎 🫏 🐎 🦄 🦓 🦌 🦬 🐮 🐂 🐃 🐄 🐷 🐖 🐗 🐽 🐏 🐑 🐐 🐪 🐫 🦙 🦒 🐘 🦣 🦏 🦛 🐭 🐁 🐀 🐹 🐰 🐇 🐿️ 🦫 🦔 🦇 🐻 🐨 🐼 🦥 🦦 🦨 🦘 🦡 🐾 🦃 🐔 🐓 🐣 🐤 🐥 🐦 🐧 🕊️ 🦅 🦆 🦢 🦉 🦤 🪶 🦩 🦚 🦜 🪽 🐸 🐊 🐢 🦎 🐍 🐲 🐉 🦕 🦖 🐳 🐋 🐬 🦭 🐟 🐠 🐡 🦈 🐙 🐚 🪸 🪼 🦀 🦞 🦐 🦑 🦪 🐌 🦋 🐛 🐜 🐝 🪲 🐞 🦗 🪳 🕷️ 🕸️ 🦂 🦟 🪰 🪱 🦠',
+    'Naturaleza':'🌵 🎄 🌲 🌳 🌴 🪵 🌱 🌿 ☘️ 🍀 🎍 🪴 🎋 🍃 🍂 🍁 🍄 🪨 🪹 🪺 🌾 💐 🌷 🪷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐ 🌟 ✨ 🌠 ☄️ 🌤️ ☀️ 🌥️ ⛅ 🌦️ ☁️ 🌧️ ⛈️ 🌩️ 🌨️ ❄️ ☃️ ⛄ 🌬️ 💨 🌪️ 🌫️ 🌈 ☔ 💧 💦 🌊 🔥',
+    'Comida':'🍏 🍎 🍐 🍊 🍋 🍋‍🟩 🍌 🍉 🍇 🍓 🫐 🍈 🍒 🍑 🥭 🍍 🥥 🥝 🍅 🫒 🥑 🍆 🥔 🥕 🌽 🌶️ 🫑 🥒 🥬 🥦 🧄 🧅 🥜 🫘 🌰 🫚 🫛 🍄 🥐 🥯 🍞 🥖 🥨 🧀 🥚 🍳 🧈 🥞 🧇 🥓 🥩 🍗 🍖 🦴 🌭 🍔 🍟 🍕 🫓 🥪 🥙 🧆 🌮 🌯 🫔 🥗 🥘 🫕 🥫 🍝 🍜 🍲 🍛 🍣 🍱 🥟 🦪 🍤 🍙 🍚 🍘 🍥 🥠 🥮 🍢 🍡 🍧 🍨 🍦 🥧 🧁 🍰 🎂 🍮 🍭 🍬 🍫 🍿 🍩 🍪 🌰 🥛 🧋 🥤 🧃 ☕ 🫖 🍵 🍶 🍺 🍻 🥂 🍷 🥃 🍸 🍹 🍾',
+    'Actividades':'⚽ 🏀 🏈 ⚾ 🥎 🎾 🏐 🏉 🎱 🏓 🏸 🏒 🏑 🥍 🏏 🪃 🥅 ⛳ 🪁 🏹 🎣 🤿 🥊 🥋 🎽 🛹 🛼 🛷 ⛸️ 🥌 🎿 ⛷️ 🏂 🪂 🏋️ 🤼 🤸 ⛹️ 🤺 🤾 🏌️ 🏇 🧘 🧗 🚴 🚵 🤽 🤿 🏊 🏄 🛀 🛌 🏆 🥇 🥈 🥉 🏅 🎖️ 🏵️ 🎗️ 🎫 🎟️ 🎪 🤹 🎭 🩰 🎨 🎬 🎤 🎧 🎼 🎹 🥁 🪘 🎷 🎺 🪗 🎸 🪕 🎻 🪈 🎲 ♟️ 🎯 🎳 🎮 🕹️ 🧩 🧸 🪅 🪩',
+    'Viajes':'🚗 🚕 🚙 🚌 🚎 🏎️ 🚓 🚑 🚒 🚐 🛻 🚚 🚛 🚜 🦯 🦽 🦼 🛴 🚲 🛵 🏍️ 🛺 🚨 🚔 🚍 🚘 🚖 🚡 🚠 🚟 🚃 🚋 🚞 🚝 🚄 🚅 🚈 🚂 🚆 🚇 🚊 🚉 ✈️ 🛫 🛬 🛩️ 💺 🛰️ 🚀 🛸 🚁 🛶 ⛵ 🚤 🛥️ 🛳️ ⛴️ 🚢 ⚓ 🛟 ⛽ 🚧 🚦 🚥 🚏 🗺️ 🗿 🗽 🗼 🏰 🏯 🏟️ 🎡 🎢 🎠 ⛲ 🏖️ 🏝️ 🏜️ 🏕️ ⛺ 🏠 🏡 🏘️ 🏚️ 🏢 🏬 🏣 🏤 🏥 🏦 🏨 🏩 🏪 🏫 🏛️ ⛪ 🕌 🛕 🕍 ⛩️ 🕋 🌁 🌃 🌄 🌅 🌆 🌇 🌉 🌌',
+    'Objetos':'⌚ 📱 📲 💻 🖥️ 🖨️ ⌨️ 🖱️ 🖲️ 💽 💾 💿 📀 📼 📷 📸 📹 🎥 📽️ 🎞️ 📞 ☎️ 📟 📠 🔋 🪫 🔌 💡 🔦 🕯️ 🪔 🧯 🛢️ 💸 💵 💴 💶 💷 🪙 💰 💳 🧾 💹 📔 📕 📖 📗 📘 📙 📚 📓 📒 📃 📜 📄 📰 🗞️ 📑 🔖 🏷️ 💼 📁 📂 🗂️ 📅 📆 🗒️ 🗓️ 📇 📈 📉 📊 📋 📌 📍 📎 🖇️ 📏 📐 ✂️ 🗃️ 🗄️ 🗑️ 🔒 🔓 🔏 🔐 🔑 🗝️ 🔨 🪓 ⛏️ ⚒️ 🛠️ 🗡️ ⚔️ 🔫 🪃 🛡️ 🪚 🔧 🪛 🔩 ⚙️ 🗜️ ⚖️ 🦯 🧰 🪝 🧲 🪜 🧪 🧫 🧬 🔬 🔭 📡 💉 🩸 💊 🩹 🩺 🩻 🩼 🚪 🛏️ 🛋️ 🪑 🚿 🛁 🪞 🪟 🧹 🧺 🧻 🪠 🧽 🧴 🛎️ 🔑 🧷 🧸 🧵 🪡 🧶 🪢',
+    'Símbolos':'❤️ 🧡 💛 💚 💙 💜 🤎 🖤 🤍 🩷 🩵 🩶 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟 ♥️ ♠️ ♦️ ♣️ 🃏 🀄 🎴 ☮️ ✝️ ☪️ 🕉️ ☸️ ✡️ 🔯 🕎 ☯️ ☦️ 🛐 ⛎ ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ 🆔 ⚛️ 🉑 ☢️ ☣️ 📴 📳 🈶 🈚 🈸 🈺 🈷️ ✴️ 🆚 💮 🉐 ㊙️ ㊗️ 🈴 🈵 🈹 🈲 🅰️ 🅱️ 🆎 🆑 🅾️ 🆘 ❌ ⭕ 🛑 ⛔ 📛 🚫 💯 💢 ♨️ 🚷 🚯 🚳 🚱 🔞 📵 🚭 ❗ ❕ ❓ ❔ ‼️ ⁉️ 🔅 🔆 🔱 ⚜️ 〽️ ⚠️ 🚸 🔰 ♻️ ✅ 🈯 💹 ❇️ ✳️ ❎ 🌐 💠 Ⓜ️ 🌀 💤 🏧 🚾 ♿ 🅿️ 🛗 🛂 🛃 🛄 🛅 🚹 🚺 🚻 🚼 🚮 🎦 📶 🈁 🔣 ℹ️ 🔤 🔡 🔠 🔢 🔣 🆕 🆙 🆒 🆓 🆖 🆗 🆕 🆙 🔝 🔛 🔜 🔚 🔃 🔄 🔙 🔚 🔛 🔜 ➕ ➖ ➗ ✖️ 🟰 ♾️ 💲 💱 ™️ ©️ ®️ 🔴 🟠 🟡 🟢 🔵 🟣 ⚫ ⚪ 🟤 🔺 🔻 🔸 🔹 🔶 🔷 🔳 🔲 ▪️ ▫️ ◾ ◽ ◼️ ◻️ ⬛ ⬜ 🔈 🔇 🔉 🔊 🔔 🔕 📣 📢 💬 💭 🗯️ ♠️ ♣️ ♥️ ♦️ 🔀 🔁 🔂 ▶️ ⏩ ⏭️ ⏯️ ◀️ ⏪ ⏮️ 🔼 ⏫ 🔽 ⏬ ⏸️ ⏹️ ⏺️ ⏏️ 🎵 🎶 🔊 🔉 🔈 🔇 🔔 🔕',
+    'Banderas':'🏁 🚩 🎌 🏴 🏳️ 🏳️‍🌈 🏳️‍⚧️ 🏴‍☠️ 🇪🇸 🇲🇽 🇦🇷 🇨🇴 🇨🇱 🇵🇪 🇻🇪 🇺🇸 🇨🇦 🇬🇧 🇮🇪 🇫🇷 🇩🇪 🇮🇹 🇵🇹 🇧🇷 🇯🇵 🇰🇷 🇨🇳 🇮🇳 🇦🇺 🇳🇿 🇨🇭 🇳🇱 🇧🇪 🇸🇪 🇳🇴 🇩🇰 🇫🇮 🇵🇱 🇺🇦 🇷🇺 🇬🇷 🇹🇷 🇲🇦 🇪🇬 🇿🇦 🇳🇬 🇹🇭 🇻🇳 🇮🇩 🇵🇭 🇸🇦 🇦🇪 🇮🇱 🇨🇺 🇵🇷 🇺🇾 🇪🇨 🇧🇴 🇨🇷 🇵🇦 🇩🇴 🇬🇹 🇭🇳 🇸🇻 🇳🇮 🇵🇾 🇮🇸 🇦🇹 🇨🇿 🇷🇴 🇭🇺 🇭🇷 🇷🇸 🇸🇰 🇸🇮 🇧🇬 🇱🇺 🇲🇨 🇦🇩 🇲🇹 🇨🇾 🇹🇼 🇭🇰 🇸🇬 🇲🇾 🇵🇰 🇧🇩 🇱🇰 🇳🇵 🇰🇪 🇬🇭 🇪🇹 🇹🇳 🇶🇦 🇯🇴 🇱🇧 🇮🇷 🇮🇶 🇵🇸 🇺🇳 🏴'
+  };
+  const tones=['🏻','🏼','🏽','🏾','🏿'];
+  const tonedBases=['👋','🤚','🖐️','✋','🖖','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🙏','💪','🦵','🦶','👂','👃','🧑','👨','👩','🧒','👦','👧','👶','🧓','👴','👵','🙋','🙆','🙅','💁','🙇','🤦','🤷','🧏','💆','💇','🚶','🏃','🧎','🧍','🧘','🛀','🏋️','🤸','🤼','⛹️','🏌️','🏄','🏊','🚴','🚵','🧗','🤽','🤾','🧑‍⚕️','🧑‍🎓','🧑‍🏫','🧑‍🍳','🧑‍🌾','🧑‍🔧','🧑‍💻','🧑‍🎤','🧑‍🎨','🧑‍🚀','🧑‍🚒','🕵️','👮','👷','💂','🥷','🤴','👸','🤵','👰','🎅','🤶','🧙','🧝','🧛','🧟','🧞','🧜','🧚','🦸','🦹'];
+  EMOJI_GROUPS['Personas'] += ' ' + tonedBases.flatMap(base=>tones.map(tone=>base+tone)).join(' ');
+  const CATEGORIES = ['Todos',...Object.keys(EMOJI_GROUPS)];
+  let emojiCategory='Todos', emojiLimit=120;
+  const $ = id => document.getElementById(id);
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const uid = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+  const blank = () => ({fields:[],events:[]});
+  let state = load();
+  let period = 'all', editingId = null, selectedEmoji = '✳', selectedImage = null, manageId = null, toastTimer = null;
+  function load(){ try { const s=JSON.parse(localStorage.getItem(KEY)); if(s&&Array.isArray(s.fields)&&Array.isArray(s.events))return s; } catch {} return blank(); }
+  let cloud=null, account=null, syncTimer=null, syncRunning=false, syncAgain=false, syncedFields=new Set(), syncedEvents=new Set();
+  function persist(){ try { localStorage.setItem(KEY,JSON.stringify(state)); } catch { showToast('No hay espacio suficiente para guardar la imagen. Prueba con otra más pequeña.'); } if(account)queueSync(); }
+  function restoreSyncBaseline(){const base=JSON.parse(localStorage.getItem(`${KEY}_sync_${account.id}`)||'{}');syncedFields=new Set(base.fields||[]);syncedEvents=new Set(base.events||[]);}
+  function setSyncLabel(label,ready=false){$('syncLabel').textContent=label;$('syncDot').classList.toggle('ready',ready);}
+  function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(()=>synchronize(),450);}
+  function cloudRows(table){return cloud.from(table).select('*');}
+  async function synchronize(){
+    if(!cloud||!account)return;
+    if(syncRunning){syncAgain=true;return;}syncRunning=true;setSyncLabel('Sincronizando…');
+    try{
+      const [fr,er]=await Promise.all([cloudRows('fields'),cloudRows('events')]);if(fr.error)throw fr.error;if(er.error)throw er.error;
+      const remoteFields=fr.data||[],remoteEvents=er.data||[];
+      const deletedFields=[...syncedFields].filter(id=>!state.fields.some(f=>f.id===id));
+      const deletedEvents=[...syncedEvents].filter(id=>!state.events.some(e=>e.id===id));
+      if(deletedFields.length){const r=await cloud.from('fields').delete().in('id',deletedFields);if(r.error)throw r.error;}
+      if(deletedEvents.length){const r=await cloud.from('events').delete().in('id',deletedEvents);if(r.error)throw r.error;}
+      const fieldMap=new Map(remoteFields.filter(f=>!deletedFields.includes(f.id)).map(f=>[f.id,{id:f.id,name:f.name,folder:f.folder||'',emoji:f.emoji||'✳',image:f.image||null,createdAt:f.created_at}]));
+      for(const f of state.fields)fieldMap.set(f.id,{...f});
+      const eventMap=new Map(remoteEvents.filter(e=>!deletedEvents.includes(e.id)).map(e=>[e.id,{id:e.id,fieldId:e.field_id,at:e.created_at}]));
+      for(const e of state.events)eventMap.set(e.id,{...e});
+      state={fields:[...fieldMap.values()],events:[...eventMap.values()]};localStorage.setItem(KEY,JSON.stringify(state));
+      const fields=[...fieldMap.values()].map(f=>({id:f.id,user_id:account.id,name:f.name,folder:f.folder||'',emoji:f.emoji||'✳',image:f.image||null,created_at:f.createdAt||new Date().toISOString()}));
+      const events=[...eventMap.values()].map(e=>({id:e.id,user_id:account.id,field_id:e.fieldId,created_at:e.at}));
+      if(fields.length){const r=await cloud.from('fields').upsert(fields,{onConflict:'id'});if(r.error)throw r.error;}
+      if(events.length){const r=await cloud.from('events').upsert(events,{onConflict:'id'});if(r.error)throw r.error;}
+      syncedFields=new Set(fieldMap.keys());syncedEvents=new Set(eventMap.keys());localStorage.setItem(`${KEY}_sync_${account.id}`,JSON.stringify({fields:[...syncedFields],events:[...syncedEvents]}));setSyncLabel('Sincronizado',true);render();
+    }catch(err){console.error('Error de sincronización',err);setSyncLabel('Sin conexión');}
+    finally{syncRunning=false;if(syncAgain){syncAgain=false;queueSync();}}
+  }
+  function accountMessage(text){$('accountStatus').textContent=text;}
+  $('syncBtn').addEventListener('click',()=>{$('accountStatus').textContent='';if(account){$('accountEmail').value=account.email||'';$('accountCopy').textContent=`Sesión iniciada como ${account.email}. Tus cambios se sincronizan automáticamente.`;$('accountSubmit').textContent='Cerrar sesión';}else{$('accountCopy').textContent='Accede con un enlace privado que te enviaremos al correo. Tus registros quedarán asociados solo a tu cuenta.';$('accountSubmit').textContent='Enviar enlace';}$('accountDialog').showModal();});
+  $('accountForm').addEventListener('submit',async e=>{e.preventDefault();if(!cloud){accountMessage('La sincronización se activará al publicar la app.');return;}if(account){await cloud.auth.signOut();account=null;syncedFields.clear();syncedEvents.clear();setSyncLabel('Sin cuenta');accountMessage('Has cerrado sesión.');$('accountSubmit').textContent='Enviar enlace';$('accountCopy').textContent='Accede con un enlace privado que te enviaremos al correo. Tus registros quedarán asociados solo a tu cuenta.';return;}if(location.protocol!=='https:'){accountMessage('Abre la versión publicada con conexión segura para activar la sincronización.');return;}const email=$('accountEmail').value.trim();$('accountSubmit').disabled=true;accountMessage('Enviando enlace…');try{const {error}=await cloud.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});if(error)throw error;accountMessage('Te hemos enviado un enlace. Ábrelo en este dispositivo para iniciar sesión.');}catch(err){accountMessage(err.message||'No se pudo enviar el enlace.');}finally{$('accountSubmit').disabled=false;}});
+  const cfg=window.CUENTA_SUPABASE;
+  if(window.supabase?.createClient&&cfg?.url&&cfg?.anonKey){cloud=window.supabase.createClient(cfg.url,cfg.anonKey);cloud.auth.getSession().then(({data})=>{account=data.session?.user||null;if(account){restoreSyncBaseline();setSyncLabel('Sincronizando…');synchronize();}else setSyncLabel('Sin cuenta');});cloud.auth.onAuthStateChange((_event,session)=>{account=session?.user||null;if(account){restoreSyncBaseline();setSyncLabel('Sincronizando…');synchronize();}else{syncedFields.clear();syncedEvents.clear();setSyncLabel('Sin cuenta');}});}
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&account)synchronize();});
+  function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+  function weekStart(d){const x=startOfDay(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x;}
+  function periodStart(key){const d=new Date();if(key==='today')return startOfDay(d);if(key==='week')return weekStart(d);if(key==='month')return new Date(d.getFullYear(),d.getMonth(),1);return null;}
+  function inPeriod(ts,key){const since=periodStart(key);return !since||new Date(ts)>=since;}
+  function eventsFor(id='all'){return state.events.filter(e=>(id==='all'||e.fieldId===id));}
+  function countFor(id,key='all'){return eventsFor(id).filter(e=>inPeriod(e.at,key)).length;}
+  function dateText(ts){const d=new Date(ts),now=new Date();if(d.toDateString()===now.toDateString())return `Hoy · ${d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}`;return d.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});}
+  function render(){renderHome();refreshFieldOptions();drawChart();}
+  function renderHome(){
+    const total=countFor('all',period),labels={today:'registros hoy',week:'registros esta semana',month:'registros este mes',all:'registros en total'};
+    $('summaryTotal').textContent=total;$('summaryCaption').textContent=labels[period];
+    document.querySelectorAll('.period-tab').forEach(b=>b.classList.toggle('selected',b.dataset.period===period));
+    const grouped=new Map();for(const f of state.fields){const folder=f.folder?.trim()||'Sin carpeta';if(!grouped.has(folder))grouped.set(folder,[]);grouped.get(folder).push(f);}
+    $('fieldCount').textContent=`${state.fields.length} ${state.fields.length===1?'campo':'campos'}`;
+    $('emptyState').hidden=state.fields.length>0;
+    const area=$('fieldsArea');area.innerHTML='';
+    for(const [folder,fields] of grouped){
+      const block=document.createElement('section');block.className='folder-block';
+      block.innerHTML=`<div class="folder-heading"><span class="folder-emoji">${folder==='Sin carpeta'?'◫':'▱'}</span>${escapeHTML(folder)} <span style="font-weight:400;color:#a0a49b">· ${fields.length}</span></div><div class="counter-grid"></div>`;
+      const grid=block.querySelector('.counter-grid');
+      for(const f of fields){const card=document.createElement('article');card.className='counter-card';card.tabIndex=0;card.setAttribute('aria-label',`Añadir uno a ${f.name}`);
+        const icon=f.image?`<img src="${f.image}" alt="">`:escapeHTML(f.emoji||'✳');
+        const n=countFor(f.id),last=eventsFor(f.id).at(-1);
+        card.innerHTML=`<div class="counter-actions"><button class="tiny-action undo-action" title="Deshacer último registro" aria-label="Deshacer último registro de ${escapeHTML(f.name)}">↶</button><button class="tiny-action edit-action" title="Editar campo" aria-label="Editar ${escapeHTML(f.name)}">···</button></div><div class="counter-icon">${icon}</div><div class="counter-name">${escapeHTML(f.name)}</div><div class="counter-total"><strong>${n}</strong><span>${n===1?'vez':'veces'}</span></div><div class="counter-last">${last?`Último · ${dateText(last.at)}`:'Toca para empezar'}</div><span class="counter-add" aria-hidden="true">＋</span>`;
+        card.addEventListener('click',e=>{if(e.target.closest('.edit-action')){e.stopPropagation();openManage(f.id);return;}if(e.target.closest('.undo-action')){e.stopPropagation();undo(f.id);return;}increment(f.id);});
+        card.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===card){e.preventDefault();increment(f.id);}});grid.append(card);
+      }
+      const add=document.createElement('button');add.className='small-add-card';add.innerHTML='<b>＋</b><span>Añadir campo</span>';add.addEventListener('click',()=>openForm(null,folder));grid.append(add);area.append(block);
+    }
+  }
+  function increment(id){state.events.push({id:uid(),fieldId:id,at:new Date().toISOString()});persist();render();}
+  function undo(id){const i=state.events.map(e=>e.fieldId).lastIndexOf(id);if(i<0){showToast('Todavía no hay registros que deshacer.');return;}state.events.splice(i,1);persist();render();showToast('Último registro deshecho.');}
+  function refreshFieldOptions(){const select=$('chartField'),previous=select.value;select.innerHTML='<option value="all">Todos los campos</option>'+state.fields.map(f=>`<option value="${escapeHTML(f.id)}">${escapeHTML(f.folder?f.folder+' · ':'')}${escapeHTML(f.name)}</option>`).join('');if([...select.options].some(o=>o.value===previous))select.value=previous;
+    $('folderOptions').innerHTML=[...new Set(state.fields.map(f=>f.folder).filter(Boolean))].map(f=>`<option value="${escapeHTML(f)}"></option>`).join('');}
+  function openForm(id=null,folder=''){editingId=id;selectedImage=null;emojiCategory='Todos';emojiLimit=120;$('emojiSearch').value='';const f=state.fields.find(x=>x.id===id);selectedEmoji=f?.emoji||'✳';
+    $('formTitle').textContent=f?'Editar campo':'Añadir un campo';$('formKicker').textContent=f?'AJUSTA TU CONTADOR':'PERSONALIZA TU CONTADOR';$('fieldName').value=f?.name||'';$('fieldFolder').value=f?.folder||folder;$('fieldEmoji').value=f?.emoji||'';$('fieldImage').value='';$('uploadName').textContent=f?.image?'Imagen actual guardada · puedes elegir otra':'Opcional · se guarda en este dispositivo';
+    $('fieldForm').querySelector('[type=submit]').textContent=f?'Guardar cambios':'Guardar campo';drawEmojiPicker();$('fieldDialog').showModal();setTimeout(()=>$('fieldName').focus(),60);}
+  function drawEmojiPicker(){
+    const catBox=$('emojiCategories'),box=$('emojiPicker'),q=$('emojiSearch').value.trim().toLocaleLowerCase('es');
+    catBox.innerHTML=CATEGORIES.map(c=>`<button type="button" class="category-chip ${emojiCategory===c?'active':''}">${escapeHTML(c)}</button>`).join('');
+    catBox.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{emojiCategory=b.textContent;emojiLimit=120;drawEmojiPicker();}));
+    let groups=emojiCategory==='Todos'?Object.entries(EMOJI_GROUPS):[[emojiCategory,EMOJI_GROUPS[emojiCategory]||'']];
+    const searchGroups={cigarro:'Populares',cigarrillo:'Populares',porro:'Naturaleza',cannabis:'Naturaleza',comida:'Comida',pizza:'Comida',hamburguesa:'Comida',bebida:'Comida',fruta:'Comida',perro:'Animales',gato:'Animales',mascota:'Animales',caballo:'Animales',pájaro:'Animales',pez:'Animales',flor:'Naturaleza',planta:'Naturaleza',árbol:'Naturaleza',deporte:'Actividades',música:'Actividades',viaje:'Viajes',coche:'Viajes',avión:'Viajes',bandera:'Banderas',país:'Banderas',amor:'Símbolos',corazón:'Símbolos',cara:'Caras',emoción:'Caras',persona:'Personas',mano:'Personas',piel:'Personas',casa:'Viajes',trabajo:'Objetos',dinero:'Objetos'};
+    if(q){const target=searchGroups[q];groups=groups.filter(([name])=>name.toLocaleLowerCase('es').includes(q)||name===target||q==='emoji'||q==='emojis');}
+    let emojis=[...new Set(groups.flatMap(([,items])=>items.split(/\s+/).filter(Boolean)))];
+    if(q&&!groups.length)emojis=Array.from(q).filter(ch=>/\p{Extended_Pictographic}/u.test(ch));
+    const visible=emojis.slice(0,emojiLimit);
+    box.innerHTML=visible.map(e=>`<button type="button" class="emoji-choice ${selectedEmoji===e?'active':''}" aria-label="Icono ${e}">${e}</button>`).join('')||'<span class="emoji-no-results">No hay coincidencias. Puedes escribir cualquier emoji en el campo inferior.</span>';
+    box.querySelectorAll('.emoji-choice').forEach(b=>b.addEventListener('click',()=>{selectedEmoji=b.textContent;$('fieldEmoji').value='';drawEmojiPicker();}));
+    if(emojis.length>visible.length){const more=document.createElement('button');more.type='button';more.className='emoji-more';more.textContent=`Ver más (${emojis.length-visible.length})`;more.addEventListener('click',()=>{emojiLimit+=120;drawEmojiPicker();});box.append(more);}
+  }
+  function openManage(id){const f=state.fields.find(x=>x.id===id);if(!f)return;manageId=id;$('confirmTitle').textContent=f.name;$('confirmCopy').textContent=`${countFor(id)} ${countFor(id)===1?'registro guardado':'registros guardados'} en este campo.`;$('confirmDialog').showModal();}
+  function closeManage(){ $('confirmDialog').close(); }
+  function showToast(message){const d=$('toastDialog');$('toastMessage').textContent=message;if(!d.open)d.show();clearTimeout(toastTimer);toastTimer=setTimeout(()=>{if(d.open)d.close();},2100);}
+  $('addFieldBtn').addEventListener('click',()=>openForm());$('emptyAddBtn').addEventListener('click',()=>openForm());
+  $('fieldEmoji').addEventListener('input',()=>{if($('fieldEmoji').value.trim())selectedEmoji=$('fieldEmoji').value.trim();});
+  $('emojiSearch').addEventListener('input',()=>{emojiLimit=120;drawEmojiPicker();});
+  $('fieldImage').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){showToast('Elige un archivo de imagen.');return;}try{selectedImage=await resizeImage(file);$('uploadName').textContent=file.name;}catch{showToast('No se ha podido abrir esa imagen.');}});
+  function resizeImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,360/Math.max(img.width,img.height)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',.78));};img.src=reader.result;};reader.readAsDataURL(file);});}
+  $('fieldForm').addEventListener('submit',e=>{e.preventDefault();const name=$('fieldName').value.trim(),folder=$('fieldFolder').value.trim(),custom=$('fieldEmoji').value.trim();if(!name)return;const f=state.fields.find(x=>x.id===editingId);if(f){f.name=name;f.folder=folder;f.emoji=custom||selectedEmoji;f.image=selectedImage||f.image||null;}else state.fields.push({id:uid(),name,folder,emoji:custom||selectedEmoji,image:selectedImage||null,createdAt:new Date().toISOString()});persist();$('fieldDialog').close();render();showToast(f?'Campo actualizado.':'Campo creado.');});
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
+  $('editFieldAction').addEventListener('click',()=>{const id=manageId;closeManage();openForm(id);});
+  $('deleteFieldAction').addEventListener('click',()=>{const f=state.fields.find(x=>x.id===manageId);if(!f)return;if(!confirm(`¿Eliminar «${f.name}» y todos sus registros? Esta acción no se puede deshacer.`))return;state.fields=state.fields.filter(x=>x.id!==manageId);state.events=state.events.filter(x=>x.fieldId!==manageId);persist();closeManage();render();showToast('Campo eliminado.');});
+  document.querySelectorAll('.period-tab').forEach(b=>b.addEventListener('click',()=>{period=b.dataset.period;renderHome();}));
+  document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav-item').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));if(b.dataset.page==='statsPage')drawChart();window.scrollTo({top:0,behavior:'smooth'});}));
+  $('chartField').addEventListener('change',drawChart);$('chartGrouping').addEventListener('change',drawChart);window.addEventListener('resize',()=>{if($('statsPage').classList.contains('active'))drawChart();});
+  function chartBuckets(group){const now=new Date(),out=[];if(group==='hour'){for(let h=0;h<24;h++)out.push({key:`h${h}`,label:`${String(h).padStart(2,'0')}`,start:new Date(now.getFullYear(),now.getMonth(),now.getDate(),h),end:new Date(now.getFullYear(),now.getMonth(),now.getDate(),h+1)});}else if(group==='day'){for(let k=13;k>=0;k--){const d=startOfDay(now);d.setDate(d.getDate()-k);const e=new Date(d);e.setDate(e.getDate()+1);out.push({key:d.toISOString().slice(0,10),label:d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric'}),start:d,end:e});}}else if(group==='week'){for(let k=11;k>=0;k--){const d=weekStart(now);d.setDate(d.getDate()-7*k);const e=new Date(d);e.setDate(e.getDate()+7);out.push({key:`w${d.toISOString().slice(0,10)}`,label:d.toLocaleDateString('es-ES',{day:'numeric',month:'short'}),start:d,end:e});}}else if(group==='month'){for(let k=11;k>=0;k--){const d=new Date(now.getFullYear(),now.getMonth()-k,1),e=new Date(d.getFullYear(),d.getMonth()+1,1);out.push({key:`m${d.getFullYear()}-${d.getMonth()}`,label:d.toLocaleDateString('es-ES',{month:'short'}),start:d,end:e});}}else if(group==='year'){for(let k=4;k>=0;k--){const y=now.getFullYear()-k;out.push({key:`y${y}`,label:String(y),start:new Date(y,0,1),end:new Date(y+1,0,1)});}}else{for(const f of state.fields)out.push({key:f.id,label:f.name,start:null,end:null});}return out;}
+  function drawChart(){if(!$('activityChart'))return;const fieldId=$('chartField').value,group=$('chartGrouping').value,events=eventsFor(fieldId),buckets=chartBuckets(group),vals=buckets.map(b=>group==='all'?events.filter(e=>e.fieldId===b.key).length:events.filter(e=>{const d=new Date(e.at);return d>=b.start&&d<b.end;}).length),sum=events.length;const canvas=$('activityChart'),ctx=canvas.getContext('2d'),rect=canvas.getBoundingClientRect(),ratio=window.devicePixelRatio||1;canvas.width=Math.max(1,Math.round(rect.width*ratio));canvas.height=Math.max(1,Math.round(rect.height*ratio));ctx.scale(ratio,ratio);ctx.clearRect(0,0,rect.width,rect.height);$('chartTotal').textContent=sum;$('chartEmpty').style.display=sum?'none':'grid';const names={hour:'Registros por hora',day:'Registros por día',week:'Registros por semana',month:'Registros por mes',year:'Registros por año',all:'Resumen general'};$('chartTitle').textContent=names[group];$('chartLegend').textContent=fieldId==='all'?'Todos los campos':state.fields.find(f=>f.id===fieldId)?.name||'Registros';$('chartRange').textContent=group==='hour'?'Hoy':group==='day'?'Últimos 14 días':group==='week'?'Últimas 12 semanas':group==='month'?'Últimos 12 meses':group==='year'?'Últimos 5 años':'Acumulado';
+    if(!sum){$('insightText').textContent='Cada toque se convierte en un dato. Empieza a contar y aquí verás cómo evoluciona.';return;}
+    const max=Math.max(...vals,1),left=31,right=rect.width-10,top=14,bottom=rect.height-31,w=right-left,h=bottom-top,n=vals.length,step=w/Math.max(n,1),barW=Math.min(group==='hour'?9:26,step*.56);ctx.font='10px system-ui';ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillStyle='#a2a79e';const ticks=4;for(let i=0;i<=ticks;i++){const y=top+h*i/ticks,value=Math.round(max*(1-i/ticks));ctx.strokeStyle='#eff1ec';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke();ctx.fillText(value,left-7,y);}
+    const points=[];vals.forEach((v,i)=>{const x=left+step*i+step/2,y=bottom-(v/max)*h;points.push({x,y});});ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle='#648a6f';ctx.lineWidth=2.2;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();points.forEach((p,i)=>{if(vals[i]){ctx.beginPath();ctx.arc(p.x,p.y,3.3,0,Math.PI*2);ctx.fillStyle='#648a6f';ctx.fill();ctx.beginPath();ctx.arc(p.x,p.y,1.3,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();}else if(group!=='all'){ctx.beginPath();ctx.arc(p.x,bottom-1,1.6,0,Math.PI*2);ctx.fillStyle='#bdc9bd';ctx.fill();}});
+    ctx.textAlign='center';ctx.textBaseline='top';ctx.fillStyle='#92988f';const stride=Math.max(1,Math.ceil(n/(group==='hour'?8:7)));buckets.forEach((b,i)=>{if(i%stride===0||i===n-1){let label=b.label;if(group==='all'&&label.length>8)label=label.slice(0,7)+'…';ctx.fillText(label,left+step*i+step/2,bottom+9);}});
+    const maxBucket=Math.max(...vals),peak=vals.indexOf(maxBucket),periodName=group==='hour'?'hora':group==='day'?'día':group==='week'?'semana':group==='month'?'mes':group==='year'?'año':'campo';$('insightText').textContent=`${maxBucket} ${maxBucket===1?'registro':'registros'} en tu ${periodName} con más actividad${group==='hour'?` (${buckets[peak]?.label}:00)`:group==='all'?` (${buckets[peak]?.label||'—'})`:''}.`;
+  }
+  $('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({format:'cuenta-backup-v1',exportedAt:new Date().toISOString(),...state},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`cuenta-copia-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);showToast('Copia de seguridad descargada.');});
+  $('importBtn').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!Array.isArray(data.fields)||!Array.isArray(data.events))throw new Error();if(!confirm(`La copia contiene ${data.fields.length} campos y ${data.events.length} registros. Sustituirá los datos actuales. ¿Continuar?`))return;state={fields:data.fields,events:data.events};persist();render();showToast('Copia restaurada.');}catch{showToast('El archivo no parece una copia válida de Cuenta.');}finally{e.target.value='';}});
+  $('dateLabel').textContent=new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+  if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+  render();
+})();
