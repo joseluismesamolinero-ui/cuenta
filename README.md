@@ -4,15 +4,15 @@ Una app web progresiva (PWA) de contador personal para Safari, diseñada primero
 
 ## Abrir en Safari
 
-En Mac, haz doble clic en **Abrir Cuenta.command**. En Safari, abre [http://127.0.0.1:8000](http://127.0.0.1:8000). Deja abierta la ventana que inicia el servidor mientras utilizas la aplicación.
+Abre [Cuenta en GitHub Pages](https://joseluismesamolinero-ui.github.io/cuenta/) en Safari. También puedes abrir esa dirección en cualquier navegador moderno.
 
-La app conserva una copia en este navegador y ofrece acceso con enlace privado al correo para sincronizarla entre dispositivos. La base de datos de Supabase ya está creada con políticas que aíslan los datos por usuario; falta publicar la app en HTTPS y permitir esa dirección en la configuración de acceso antes de activar la sincronización.
+La app conserva una copia en este navegador y ofrece acceso con enlace privado al correo para sincronizarla entre dispositivos. La base de datos de Supabase ya está creada con políticas que aíslan los datos por usuario, y la dirección segura de la app está permitida para el inicio de sesión.
 
 ## Publicar en Internet
 
-El archivo `.github/workflows/pages.yml` prepara la publicación automática con GitHub Pages. La app solo podrá estar disponible desde cualquier lugar después de subir esta carpeta a GitHub y activar Pages. En el nivel gratuito, GitHub Pages requiere un repositorio público, así que el código será visible; los datos de uso permanecen privados en Supabase.
+El repositorio de GitHub publica esta web con GitHub Pages desde la rama principal. Los cambios que se suban al repositorio se reflejarán en la web. En el nivel gratuito, GitHub Pages requiere un repositorio público, así que el código será visible; los datos de uso permanecen privados en Supabase.
 
-Tras publicarla, abre la dirección HTTPS en Safari y elige **Compartir → Añadir a pantalla de inicio** para instalarla en el iPhone. La caché offline y el icono de iPhone ya están incluidos.
+Para instalarla en el iPhone, abre la dirección HTTPS en Safari y elige **Compartir → Añadir a pantalla de inicio**. La caché offline y los iconos ya están incluidos.
 
 La carpeta `supabase/` contiene el esquema de tablas y permisos; ese esquema ya se aplicó al proyecto `cuenta-sync`. `supabase-config.js` contiene únicamente la clave publicable del proyecto (nunca una clave secreta).
 ## Funciones
