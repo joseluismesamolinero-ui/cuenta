@@ -12,7 +12,7 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>Cuenta — a tu manera</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=refine-20261013">
 </head>
 <body>
   <div class="app-shell">
@@ -61,6 +61,6 @@
   <dialog id="fieldDialog" class="modal"><form id="fieldForm"><div class="modal-head"><div><p class="eyebrow" id="formKicker">PERSONALIZA TU CONTADOR</p><h2 id="formTitle">Añadir un campo</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><label class="form-label">¿Qué quieres contar?<input id="fieldName" name="name" maxlength="28" placeholder="Ej. Paseos" required autocomplete="off"></label><div class="form-label">Elige un icono<div class="emoji-search-wrap"><span>⌕</span><input id="emojiSearch" type="search" placeholder="Buscar emoji" autocomplete="off"></div><div class="emoji-categories" id="emojiCategories"></div><div class="icon-picker" id="emojiPicker"></div><div class="custom-icon"><input id="fieldEmoji" name="emoji" maxlength="12" placeholder="✳" aria-label="Icono personalizado"><span>O escribe cualquier emoji de tu teclado</span></div></div><label class="form-label">Carpeta<input id="fieldFolder" name="folder" list="folderOptions" maxlength="24" placeholder="Ej. Bienestar" autocomplete="off"><datalist id="folderOptions"></datalist><span class="field-hint">Escribe una carpeta nueva o elige una existente.</span></label><label class="form-label upload-label">O añade una imagen<input type="file" id="fieldImage" accept="image/*"><span class="upload-button">＋ Elegir imagen</span><span class="upload-name" id="uploadName">Opcional · se guarda en este dispositivo</span></label><div class="modal-actions"><button class="secondary-button" type="button" data-close>Cancelar</button><button class="primary-button" type="submit">Guardar campo</button></div></form></dialog>
   <dialog id="confirmDialog" class="modal confirm-modal"><div class="modal-head"><div><p class="eyebrow">GESTIONAR CAMPO</p><h2 id="confirmTitle">¿Qué quieres hacer?</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><p class="confirm-copy" id="confirmCopy"></p><div class="manage-actions"><button class="secondary-button" id="editFieldAction">Editar nombre e icono</button><button class="secondary-button danger-button" id="deleteFieldAction">Eliminar campo y registros</button></div></dialog>
   <dialog id="toastDialog" class="toast-dialog"><p id="toastMessage"></p></dialog>
-  <script src="app.js"></script>
+  <script src="app.js?v=refine-20261013"></script>
 </body>
 </html>
