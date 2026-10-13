@@ -26,41 +26,7 @@
   let state = load();
   let period = 'all', editingId = null, selectedEmoji = '✳', selectedImage = null, manageId = null, toastTimer = null;
   function load(){ try { const s=JSON.parse(localStorage.getItem(KEY)); if(s&&Array.isArray(s.fields)&&Array.isArray(s.events))return s; } catch {} return blank(); }
-  let cloud=null, account=null, syncTimer=null, syncRunning=false, syncAgain=false, syncedFields=new Set(), syncedEvents=new Set();
-  function persist(){ try { localStorage.setItem(KEY,JSON.stringify(state)); } catch { showToast('No hay espacio suficiente para guardar la imagen. Prueba con otra más pequeña.'); } if(account)queueSync(); }
-  function restoreSyncBaseline(){const base=JSON.parse(localStorage.getItem(`${KEY}_sync_${account.id}`)||'{}');syncedFields=new Set(base.fields||[]);syncedEvents=new Set(base.events||[]);}
-  function setSyncLabel(label,ready=false){$('syncLabel').textContent=label;$('syncDot').classList.toggle('ready',ready);}
-  function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(()=>synchronize(),450);}
-  function cloudRows(table){return cloud.from(table).select('*');}
-  async function synchronize(){
-    if(!cloud||!account)return;
-    if(syncRunning){syncAgain=true;return;}syncRunning=true;setSyncLabel('Sincronizando…');
-    try{
-      const [fr,er]=await Promise.all([cloudRows('fields'),cloudRows('events')]);if(fr.error)throw fr.error;if(er.error)throw er.error;
-      const remoteFields=fr.data||[],remoteEvents=er.data||[];
-      const deletedFields=[...syncedFields].filter(id=>!state.fields.some(f=>f.id===id));
-      const deletedEvents=[...syncedEvents].filter(id=>!state.events.some(e=>e.id===id));
-      if(deletedFields.length){const r=await cloud.from('fields').delete().in('id',deletedFields);if(r.error)throw r.error;}
-      if(deletedEvents.length){const r=await cloud.from('events').delete().in('id',deletedEvents);if(r.error)throw r.error;}
-      const fieldMap=new Map(remoteFields.filter(f=>!deletedFields.includes(f.id)).map(f=>[f.id,{id:f.id,name:f.name,folder:f.folder||'',emoji:f.emoji||'✳',image:f.image||null,createdAt:f.created_at}]));
-      for(const f of state.fields)fieldMap.set(f.id,{...f});
-      const eventMap=new Map(remoteEvents.filter(e=>!deletedEvents.includes(e.id)).map(e=>[e.id,{id:e.id,fieldId:e.field_id,at:e.created_at}]));
-      for(const e of state.events)eventMap.set(e.id,{...e});
-      state={fields:[...fieldMap.values()],events:[...eventMap.values()]};localStorage.setItem(KEY,JSON.stringify(state));
-      const fields=[...fieldMap.values()].map(f=>({id:f.id,user_id:account.id,name:f.name,folder:f.folder||'',emoji:f.emoji||'✳',image:f.image||null,created_at:f.createdAt||new Date().toISOString()}));
-      const events=[...eventMap.values()].map(e=>({id:e.id,user_id:account.id,field_id:e.fieldId,created_at:e.at}));
-      if(fields.length){const r=await cloud.from('fields').upsert(fields,{onConflict:'id'});if(r.error)throw r.error;}
-      if(events.length){const r=await cloud.from('events').upsert(events,{onConflict:'id'});if(r.error)throw r.error;}
-      syncedFields=new Set(fieldMap.keys());syncedEvents=new Set(eventMap.keys());localStorage.setItem(`${KEY}_sync_${account.id}`,JSON.stringify({fields:[...syncedFields],events:[...syncedEvents]}));setSyncLabel('Sincronizado',true);render();
-    }catch(err){console.error('Error de sincronización',err);setSyncLabel('Sin conexión');}
-    finally{syncRunning=false;if(syncAgain){syncAgain=false;queueSync();}}
-  }
-  function accountMessage(text){$('accountStatus').textContent=text;}
-  $('syncBtn').addEventListener('click',()=>{$('accountStatus').textContent='';if(account){$('accountEmail').value=account.email||'';$('accountCopy').textContent=`Sesión iniciada como ${account.email}. Tus cambios se sincronizan automáticamente.`;$('accountSubmit').textContent='Cerrar sesión';}else{$('accountCopy').textContent='Accede con un enlace privado que te enviaremos al correo. Tus registros quedarán asociados solo a tu cuenta.';$('accountSubmit').textContent='Enviar enlace';}$('accountDialog').showModal();});
-  $('accountForm').addEventListener('submit',async e=>{e.preventDefault();if(!cloud){accountMessage('La sincronización se activará al publicar la app.');return;}if(account){await cloud.auth.signOut();account=null;syncedFields.clear();syncedEvents.clear();setSyncLabel('Sin cuenta');accountMessage('Has cerrado sesión.');$('accountSubmit').textContent='Enviar enlace';$('accountCopy').textContent='Accede con un enlace privado que te enviaremos al correo. Tus registros quedarán asociados solo a tu cuenta.';return;}if(location.protocol!=='https:'){accountMessage('Abre la versión publicada con conexión segura para activar la sincronización.');return;}const email=$('accountEmail').value.trim();$('accountSubmit').disabled=true;accountMessage('Enviando enlace…');try{const {error}=await cloud.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});if(error)throw error;accountMessage('Te hemos enviado un enlace. Ábrelo en este dispositivo para iniciar sesión.');}catch(err){accountMessage(err.message||'No se pudo enviar el enlace.');}finally{$('accountSubmit').disabled=false;}});
-  const cfg=window.CUENTA_SUPABASE;
-  if(window.supabase?.createClient&&cfg?.url&&cfg?.anonKey){cloud=window.supabase.createClient(cfg.url,cfg.anonKey);cloud.auth.getSession().then(({data})=>{account=data.session?.user||null;if(account){restoreSyncBaseline();setSyncLabel('Sincronizando…');synchronize();}else setSyncLabel('Sin cuenta');});cloud.auth.onAuthStateChange((_event,session)=>{account=session?.user||null;if(account){restoreSyncBaseline();setSyncLabel('Sincronizando…');synchronize();}else{syncedFields.clear();syncedEvents.clear();setSyncLabel('Sin cuenta');}});}
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&account)synchronize();});
+  function persist(){ try { localStorage.setItem(KEY,JSON.stringify(state)); } catch { showToast('No hay espacio suficiente para guardar la imagen. Prueba con otra más pequeña.'); } }
   function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
   function weekStart(d){const x=startOfDay(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x;}
   function periodStart(key){const d=new Date();if(key==='today')return startOfDay(d);if(key==='week')return weekStart(d);if(key==='month')return new Date(d.getFullYear(),d.getMonth(),1);return null;}
