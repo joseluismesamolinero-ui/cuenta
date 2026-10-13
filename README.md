@@ -6,13 +6,13 @@ Una app web progresiva (PWA) de contador personal para Safari, diseñada primero
 
 Abre [Cuenta en GitHub Pages](https://joseluismesamolinero-ui.github.io/cuenta/) en Safari. También puedes abrir esa dirección en cualquier navegador moderno.
 
-La app conserva una copia en este navegador y ofrece acceso con enlace privado al correo para sincronizarla entre dispositivos. La base de datos de Supabase ya está creada con políticas que aíslan los datos por usuario, y la dirección segura de la app está permitida para el inicio de sesión.
+La app abre directamente, sin cuenta ni contraseña. Guarda los contadores en el almacenamiento de Safari de ese dispositivo y funciona sin conexión después de abrirla una vez.
 
 ## Publicar en Internet
 
-El repositorio de GitHub publica esta web con GitHub Pages desde la rama principal. Los cambios que se suban al repositorio se reflejarán en la web. En el nivel gratuito, GitHub Pages requiere un repositorio público, así que el código será visible; los datos de uso permanecen privados en Supabase.
+El repositorio de GitHub publica esta web con GitHub Pages desde la rama principal. Los cambios que se suban al repositorio se reflejarán en la web. GitHub Pages sirve la app mediante una dirección web. El código y la página pueden ser vistos por quien conozca la dirección; los contadores ya no se envían a un servidor.
 
-Para instalarla en el iPhone, abre la dirección HTTPS en Safari y elige **Compartir → Añadir a pantalla de inicio**. La caché offline y los iconos ya están incluidos.
+Para instalarla en el iPhone, abre la dirección HTTPS en Safari y elige **Compartir → Añadir a pantalla de inicio**. La caché offline y los iconos ya están incluidos. Los datos se guardan por separado en cada dispositivo; usa Exportar datos para conservar una copia.
 
 La carpeta `supabase/` contiene el esquema de tablas y permisos; ese esquema ya se aplicó al proyecto `cuenta-sync`. `supabase-config.js` contiene únicamente la clave publicable del proyecto (nunca una clave secreta).
 ## Funciones
@@ -24,4 +24,4 @@ La carpeta `supabase/` contiene el esquema de tablas y permisos; ese esquema ya 
 - Explorar gráficas por hora, días, semanas, meses, años o total acumulado.
 - Exportar e importar una copia de los datos.
 
-Sin iniciar sesión, los datos se quedan en este navegador. Con sesión iniciada, se sincronizan con tu cuenta privada de Supabase.
+Los registros se guardan solo en el dispositivo actual. No se sincronizan automáticamente con otros dispositivos.
