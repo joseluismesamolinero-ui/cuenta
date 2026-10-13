@@ -31,9 +31,10 @@
           <div><p class="eyebrow" id="dateLabel">TU DÍA, A TU MANERA</p><h1>Tu contador<span class="period">.</span></h1><p class="subtitle">Un pequeño registro de lo que quieras seguir.</p></div>
           <button class="primary-button add-field-top" id="addFieldBtn"><span>＋</span> Añadir campo</button>
         </div>
+        <div id="hiddenShelfArea"></div>
 
         <section class="summary-card" aria-label="Resumen de actividad">
-          <div class="summary-heading"><div><span class="eyebrow">VISTA GENERAL</span><div class="summary-number" id="summaryTotal">0</div><div class="summary-caption" id="summaryCaption">registros en total</div></div><div class="summary-orbit" aria-hidden="true"><span>✳</span></div></div>
+          <div class="summary-heading"><div><span class="eyebrow">MÁS FRECUENTADO</span><div class="summary-number" id="summaryTotal">0</div><div class="summary-caption" id="summaryCaption">Aún sin registros</div></div></div>
           <div class="period-switch" role="tablist" aria-label="Periodo del resumen">
             <button class="period-tab" data-period="today">Hoy</button><button class="period-tab" data-period="week">Semana</button><button class="period-tab" data-period="month">Mes</button><button class="period-tab selected" data-period="all">Todo</button>
           </div>
@@ -47,9 +48,9 @@
 
       <section class="page" id="statsPage">
         <div class="hero-row stats-hero"><div><p class="eyebrow">MIRA CÓMO CAMBIA</p><h1>Tus datos<span class="period">.</span></h1><p class="subtitle">Un vistazo a lo que has ido registrando.</p></div></div>
-        <div class="stats-controls"><label class="select-wrap"><span>CAMPO</span><select id="chartField"><option value="all">Todos los campos</option></select><b>⌄</b></label><label class="select-wrap"><span>AGRUPAR POR</span><select id="chartGrouping"><option value="hour">Horas</option><option value="day" selected>Días</option><option value="week">Semanas</option><option value="month">Meses</option><option value="year">Años</option><option value="all">General</option></select><b>⌄</b></label></div>
+        <div class="stats-controls"><label class="select-wrap"><span>CAMPO O CARPETA</span><select id="chartField"><option value="all">Todos los campos</option></select><b>⌄</b></label><label class="select-wrap"><span>AGRUPAR POR</span><select id="chartGrouping"><option value="hour">Horas</option><option value="day" selected>Días</option><option value="week">Semanas</option><option value="month">Meses</option><option value="year">Años</option><option value="all">General</option></select><b>⌄</b></label></div>
         <section class="chart-card"><div class="chart-title-row"><div><p class="eyebrow">ACTIVIDAD</p><h2 id="chartTitle">Registros por día</h2></div><div class="chart-total"><strong id="chartTotal">0</strong><span>registros</span></div></div><div class="chart-wrap"><canvas id="activityChart" aria-label="Gráfica de actividad"></canvas><div class="chart-empty" id="chartEmpty">Aún no hay datos para mostrar.<br><span>Los registros aparecerán aquí.</span></div></div><div class="chart-legend"><span class="legend-dot"></span><span id="chartLegend">Registros</span><span class="chart-range" id="chartRange"></span></div></section>
-        <section class="insight-card"><div class="insight-icon">✦</div><div><p class="eyebrow">TU RITMO</p><p id="insightText">Cada toque se convierte en un dato. Empieza a contar y aquí verás cómo evoluciona.</p></div></section>
+        <section class="insight-card"><div class="insight-icon">✦</div><div><p class="eyebrow">ESTE MES</p><p id="insightText">Cuando cuentes algo este mes, aparecerá aquí.</p></div></section>
         <p class="privacy-note"><span>◉</span> Los datos de esta gráfica son solo tuyos.</p>
       </section>
     </main>
