@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const KEY = 'cuentaApp_v1';
+  const HIDDEN_PIN_DIGEST = '2710fe0afa87068c545c345a89c1fab8022726d626705a2ecc701656b1ee2838';
   const EMOJI_GROUPS = {
     'Populares':'✳ ⭐ ✨ 💫 🔥 ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 💕 💞 💓 💗 💖 💘 💝 💟 💌 🌟 🌈 ☀️ 🌙 ⚡ ☁️ 🌿 🍀 🌱 🌸 🌻 🪴 🦋 🐾 🎉 🎊 🎁 🎈 🏆 🥇 💎 👑 🪄 🧿 🔮 ☕ 🍵 🥤 🍺 🍷 🍹 🍸 🍻 🥂 🍾 🚬 🚭 📱 🎧 🏠 🚗 💰 💸',
     'Caras':'😀 😃 😄 😁 😆 😅 😂 🤣 🥲 🥹 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😜 🤪 😝 🤑 🤗 🫠 🤭 🫢 🫣 🤫 🤔 🫡 🤐 🤨 😐 😑 😶 🫥 😶‍🌫️ 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 🥱 😴 😌 😛 😜 😒 😓 😔 😕 🫤 🙃 🥴 😵‍💫 😵 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 😟 🙁 ☹️ 😮 😯 😲 😳 🥺 🥹 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👻 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾',
@@ -27,6 +28,7 @@
   let period = 'all', editingId = null, selectedEmoji = '✳', selectedImage = null, manageId = null, manageEventId = null, toastTimer = null, revealHidden = false;
   function load(){ try { const s=JSON.parse(localStorage.getItem(KEY)); if(s&&Array.isArray(s.fields)&&Array.isArray(s.events)){s.hiddenFolders=Array.isArray(s.hiddenFolders)?s.hiddenFolders:[];return s;} } catch {} return blank(); }
   function persist(){ try { localStorage.setItem(KEY,JSON.stringify(state)); } catch { showToast('No hay espacio suficiente para guardar la imagen. Prueba con otra más pequeña.'); } }
+  async function matchesHiddenPin(pin){const bytes=new TextEncoder().encode(`cuenta-hidden-folders-v1:${pin}`),hash=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes));return Array.from(hash,b=>b.toString(16).padStart(2,'0')).join('')===HIDDEN_PIN_DIGEST;}
   function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
   function weekStart(d){const x=startOfDay(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x;}
   function periodStart(key){const d=new Date();if(key==='today')return startOfDay(d);if(key==='week')return weekStart(d);if(key==='month')return new Date(d.getFullYear(),d.getMonth(),1);return null;}
@@ -130,7 +132,7 @@
   function showPage(pageId){document.querySelectorAll('.nav-item[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===pageId));document.querySelectorAll('.page').forEach(page=>page.classList.toggle('active',page.id===pageId));if(pageId==='statsPage')drawChart();if(pageId==='forgotPage')renderHistory();window.scrollTo({top:0,behavior:'smooth'});}
   document.querySelectorAll('.nav-item[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
   $('hiddenAccessBtn').addEventListener('click',()=>{if(revealHidden){revealHidden=false;renderHome();refreshFieldOptions();drawChart();renderHistory();return;}$('pinError').textContent='';$('pinInput').value='';$('pinDialog').showModal();setTimeout(()=>$('pinInput').focus(),60);});
-  $('pinForm').addEventListener('submit',e=>{e.preventDefault();if($('pinInput').value!=='4509'){$('pinError').textContent='Contraseña incorrecta.';$('pinInput').value='';$('pinInput').focus();return;}revealHidden=true;$('pinDialog').close();renderHome();refreshFieldOptions();drawChart();renderHistory();showPage('homePage');});
+  $('pinForm').addEventListener('submit',async e=>{e.preventDefault();if(!await matchesHiddenPin($('pinInput').value)){$('pinError').textContent='Contraseña incorrecta.';$('pinInput').value='';$('pinInput').focus();return;}revealHidden=true;$('pinDialog').close();renderHome();refreshFieldOptions();drawChart();renderHistory();showPage('homePage');});
   $('forgotForm').addEventListener('submit',e=>{e.preventDefault();const fieldId=$('forgotField').value,at=new Date($('forgotDateTime').value);if(!fieldId||Number.isNaN(at.getTime()))return;state.events.push({id:uid(),fieldId,at:at.toISOString()});persist();$('forgotDateTime').value=toLocalInput(new Date());render();showToast('Toque añadido.');});
   $('eventForm').addEventListener('submit',e=>{e.preventDefault();const event=state.events.find(item=>item.id===manageEventId),date=new Date($('eventEditDateTime').value);if(!event||Number.isNaN(date.getTime()))return;event.at=date.toISOString();persist();$('eventDialog').close();render();showToast('Fecha y hora actualizadas.');});
   $('deleteEventBtn').addEventListener('click',()=>deleteEvent(manageEventId));
