@@ -12,7 +12,7 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>Cuenta — a tu manera</title>
-  <link rel="stylesheet" href="styles.css?v=refine-20261013">
+  <link rel="stylesheet" href="styles.css?v=records-20261014">
 </head>
 <body>
   <div class="app-shell">
@@ -28,7 +28,7 @@
     <main>
       <section class="page active" id="homePage">
         <div class="hero-row">
-          <div><p class="eyebrow" id="dateLabel">TU DÍA, A TU MANERA</p><h1>Tu contador<span class="period">.</span></h1><p class="subtitle">Un pequeño registro de lo que quieras seguir.</p></div>
+          <div><p class="eyebrow" id="dateLabel">TU DÍA, A TU MANERA</p><h1>El contador de José Luis<span class="period">.</span></h1><p class="subtitle">Un pequeño registro de lo que quieras seguir.</p></div>
           <button class="primary-button add-field-top" id="addFieldBtn"><span>＋</span> Añadir campo</button>
         </div>
         <div id="hiddenShelfArea"></div>
@@ -53,14 +53,27 @@
         <section class="insight-card"><div class="insight-icon">✦</div><div><p class="eyebrow">ESTE MES</p><p id="insightText">Cuando cuentes algo este mes, aparecerá aquí.</p></div></section>
         <p class="privacy-note"><span>◉</span> Los datos de esta gráfica son solo tuyos.</p>
       </section>
+
+      <section class="page" id="forgotPage">
+        <div class="hero-row stats-hero"><div><p class="eyebrow">AÑADE ALGO QUE SE TE PASÓ</p><h1>Lo olvidé<span class="period">.</span></h1><p class="subtitle">Registra un toque con su fecha y hora reales.</p></div></div>
+        <form id="forgotForm" class="forgot-form">
+          <label class="form-label">¿Qué campo quieres actualizar?<select id="forgotField" required></select></label>
+          <label class="form-label">¿Cuándo ocurrió?<input id="forgotDateTime" type="datetime-local" required></label>
+          <button class="primary-button forgot-submit" type="submit">＋ Añadir toque</button>
+        </form>
+        <div class="section-heading history-heading"><div><p class="eyebrow">REGISTROS RECIENTES</p><h2>Revisa y edita tus toques</h2></div><span class="field-count" id="historyCount">0 registros</span></div>
+        <div id="eventHistory" class="event-history"></div>
+      </section>
     </main>
 
-    <nav class="bottom-nav" aria-label="Navegación principal"><button class="nav-item active" data-page="homePage"><span class="nav-icon">⌂</span><span>Contador</span></button><button class="nav-item" data-page="statsPage"><span class="nav-icon">▥</span><span>Estadísticas</span></button></nav>
+    <nav class="bottom-nav" aria-label="Navegación principal"><button class="nav-item nav-lock" id="hiddenAccessBtn" type="button" aria-label="Acceder a carpetas ocultas" title="Carpetas ocultas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.3-6 9.5-6c2 0 3.8.6 5.3 1.5M21.5 12s-3.3 6-9.5 6c-2 0-3.8-.6-5.3-1.5M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/></svg></button><button class="nav-item active" data-page="homePage"><span class="nav-icon">⌂</span><span>Contador</span></button><button class="nav-item" data-page="statsPage"><span class="nav-icon">▥</span><span>Estadísticas</span></button><button class="nav-item" data-page="forgotPage"><span class="nav-icon">↶</span><span>Lo olvidé</span></button></nav>
   </div>
 
   <dialog id="fieldDialog" class="modal"><form id="fieldForm"><div class="modal-head"><div><p class="eyebrow" id="formKicker">PERSONALIZA TU CONTADOR</p><h2 id="formTitle">Añadir un campo</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><label class="form-label">¿Qué quieres contar?<input id="fieldName" name="name" maxlength="28" placeholder="Ej. Paseos" required autocomplete="off"></label><div class="form-label">Elige un icono<div class="emoji-search-wrap"><span>⌕</span><input id="emojiSearch" type="search" placeholder="Buscar emoji" autocomplete="off"></div><div class="emoji-categories" id="emojiCategories"></div><div class="icon-picker" id="emojiPicker"></div><div class="custom-icon"><input id="fieldEmoji" name="emoji" maxlength="12" placeholder="✳" aria-label="Icono personalizado"><span>O escribe cualquier emoji de tu teclado</span></div></div><label class="form-label">Carpeta<input id="fieldFolder" name="folder" list="folderOptions" maxlength="24" placeholder="Ej. Bienestar" autocomplete="off"><datalist id="folderOptions"></datalist><span class="field-hint">Escribe una carpeta nueva o elige una existente.</span></label><label class="form-label upload-label">O añade una imagen<input type="file" id="fieldImage" accept="image/*"><span class="upload-button">＋ Elegir imagen</span><span class="upload-name" id="uploadName">Opcional · se guarda en este dispositivo</span></label><div class="modal-actions"><button class="secondary-button" type="button" data-close>Cancelar</button><button class="primary-button" type="submit">Guardar campo</button></div></form></dialog>
   <dialog id="confirmDialog" class="modal confirm-modal"><div class="modal-head"><div><p class="eyebrow">GESTIONAR CAMPO</p><h2 id="confirmTitle">¿Qué quieres hacer?</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><p class="confirm-copy" id="confirmCopy"></p><div class="manage-actions"><button class="secondary-button" id="editFieldAction">Editar nombre e icono</button><button class="secondary-button danger-button" id="deleteFieldAction">Eliminar campo y registros</button></div></dialog>
   <dialog id="toastDialog" class="toast-dialog"><p id="toastMessage"></p></dialog>
-  <script src="app.js?v=refine-20261013"></script>
+  <dialog id="pinDialog" class="modal pin-modal"><form id="pinForm"><div class="modal-head"><div><p class="eyebrow">ACCESO PRIVADO</p><h2>Carpetas ocultas</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><label class="form-label">Contraseña<input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" required></label><p class="pin-error" id="pinError" role="status"></p><div class="modal-actions"><button class="secondary-button" type="button" data-close>Cancelar</button><button class="primary-button" type="submit">Abrir</button></div></form></dialog>
+  <dialog id="eventDialog" class="modal"><form id="eventForm"><div class="modal-head"><div><p class="eyebrow">REVISAR TOQUE</p><h2 id="eventDialogTitle">Editar fecha y hora</h2></div><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div><label class="form-label">Fecha y hora<input id="eventEditDateTime" type="datetime-local" required></label><div class="modal-actions event-modal-actions"><button class="secondary-button danger-button" id="deleteEventBtn" type="button">Eliminar toque</button><button class="secondary-button" type="button" data-close>Cancelar</button><button class="primary-button" type="submit">Guardar</button></div></form></dialog>
+  <script src="app.js?v=records-20261014"></script>
 </body>
 </html>
